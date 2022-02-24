@@ -1,29 +1,21 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { deleteAction, editAction } from "../redux/action";
+import { deleteAction, editAction, toogleAction } from "../redux/action";
 
 export const Todo = ({ elem }) => {
-	const [isChecked, setIsChecked] = useState(false);
+	// console.log('elem',elem);
+	// const [isChecked, setIsChecked] = useState(false);
 	const [edit, setEdit] = useState(true);
 	const [editValue, setEditValue] = useState("");
-
+	const [toogle,setToogle] = useState(false);
 	
 	const dispatch = useDispatch();
-	const handleChecked = () => {
-		setIsChecked(!isChecked);
-	};
-	// console.log(isChecked);
+	// const handleChecked = () => {
+	// 	setIsChecked(!isChecked);
+	// };
 	const handleDelete = (e) => {
 		let id = e.currentTarget.parentNode.id;
-		// let allelem = all.filter((elem) => {
-		// 	return elem.id !== id;
-		// });
-		// console.log(allelem);
-		// console.log(all);
-		// const payload = {
-		// 	todo: [...allelem]
-		// };
 		const action = deleteAction(id);
 		dispatch(action);
 	};
@@ -36,16 +28,25 @@ export const Todo = ({ elem }) => {
 		const action = editAction({ id, editValue });
 		dispatch(action);
 	};
+	const handleToogle = (e) => {
+		let id = e.currentTarget.parentNode.id;
+		setToogle(!toogle);
+
+		const action = toogleAction({toogle,id})
+		dispatch(action)
+		// console.log(!toogle);
+	}
 	return (
-		<div id={elem.id}>
+		<div id={elem.id} className="alignment">
 			{edit ? (
 				<>
-					<input
+					{/* <input
 						type="checkbox"
 						checked={isChecked}
 						onChange={handleChecked}
-					/>
+					/> */}
 					<Link to={`/newpage/${elem.title}`}>{elem.title}</Link>
+					<span>{toogle.toString()}</span>
 				</>
 			) : (
 				<>
@@ -59,6 +60,7 @@ export const Todo = ({ elem }) => {
 			)}
 			<button onClick={handleEdit}>edit</button>
 			<button onClick={handleDelete}>delete</button>
+			<button onClick={handleToogle}>TOOGLE STATUS</button>
 		</div>
 	);
 };

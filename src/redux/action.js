@@ -1,4 +1,4 @@
-import { ADD_TODO, DELETE_TODO, EDIT_TODO } from "./actionType";
+import { ADD_TODO, DELETE_TODO, EDIT_TODO, TOOGLE_TODO } from "./actionType";
 
 export const todoAction = (payload) => {
 	return {
@@ -21,4 +21,13 @@ export const editAction = (payload) => {
 		payload,
 	};
 };
+
+
+export const toogleAction = (payload) => {
+	return {
+		type: TOOGLE_TODO,
+		payload,
+	};
+};
+
 

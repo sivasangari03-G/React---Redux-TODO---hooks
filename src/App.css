@@ -2,3 +2,23 @@
   text-align: center;
 }
 
+input {
+  margin-left: 20px;
+  padding: 10px 20px;
+}
+
+span {
+  margin: 20px;
+  font-size: 30px;
+}
+a {
+  font-size: 30px;
+}
+button {
+  margin: 20px;
+  padding: 10px 20px;
+}
+
+.alignment {
+  align-items: center;
+}

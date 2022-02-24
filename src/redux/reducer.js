@@ -1,8 +1,12 @@
-import { ADD_TODO, DELETE_TODO, EDIT_TODO } from "./actionType";
+import {
+	ADD_TODO,
+	DELETE_TODO,
+	EDIT_TODO,
+	TOOGLE_TODO,
+} from "./actionType";
 
 const initState = {
 	todo: [],
-	count: 0,
 };
 
 export const reducer = (state = initState, { type, payload }) => {
@@ -10,7 +14,7 @@ export const reducer = (state = initState, { type, payload }) => {
 		return {
 			...state,
 			todo: [...state.todo, payload],
-			count: state.todo.length + 1,
+			// count: state.todo.length + 1,
 		};
 	}
 	if (type === DELETE_TODO) {
@@ -19,19 +23,30 @@ export const reducer = (state = initState, { type, payload }) => {
 			todo: state.todo.filter((elem) => {
 				return elem.id !== payload;
 			}),
-			count: state.todo.length - 1,
+			// count: state.todo.length - 1,
 		};
 	}
 	if (type === EDIT_TODO) {
-		console.log("payload", payload); //id and value
+		// console.log("payload", payload); //id and value
 		const index = state.todo.findIndex((elem) => elem.id === payload.id);
 		state.todo[index].title = payload.editValue;
-        return {
-            ...state,
-			count: state.todo.length,
+		return {
+			...state,
+			// count: state.todo.length,
 			todo: [...state.todo],
 		};
 	}
 
+	if (type === TOOGLE_TODO) {
+		// console.log("payloadtoogle", payload);
+		const toogle = (!payload.toogle)
+		const index = state.todo.findIndex((elem) => elem.id === payload.id);
+		state.todo[index].status = toogle;
+		// console.log(state.todo);
+		return {
+			...state,
+			todo: [...state.todo],
+		};
+	}
 	return state;
 };
